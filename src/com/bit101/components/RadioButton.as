@@ -143,12 +143,12 @@ package com.bit101.components
 			super.draw();
 			_back.graphics.clear();
 			_back.graphics.beginFill(Style.BACKGROUND);
-			_back.graphics.drawCircle(5, 5, 5);
+			_back.graphics.drawCircle(2, 5, 10);
 			_back.graphics.endFill();
 			
 			_button.graphics.clear();
-			_button.graphics.beginFill(Style.BUTTON_FACE);
-			_button.graphics.drawCircle(5, 5, 3);
+			_button.graphics.beginFill(0x666666);
+			_button.graphics.drawCircle(2, 5, 7);
 			
 			_label.x = 12;
 			_label.y = (10 - _label.height) / 2;

@@ -39,7 +39,8 @@ package com.bit101.components
 		protected var _label:Label;
 		protected var _labelText:String = "";
 		protected var _selected:Boolean = false;
-		
+		protected var _tooltip:Tooltip;
+		protected var _toolText:String = "";
 		
 		/**
 		 * Constructor
@@ -65,6 +66,7 @@ package com.bit101.components
 		override protected function init():void
 		{
 			super.init();
+			setSize(10, 10);
 			buttonMode = true;
 			useHandCursor = true;
 			mouseChildren = false;
@@ -85,9 +87,14 @@ package com.bit101.components
 			addChild(_button);
 			
 			_label = new Label(this, 0, 0, _labelText);
+			_tooltip = new Tooltip(this, 0, 0);
+			_tooltip.visible = false;
 			draw();
 			
 			addEventListener(MouseEvent.CLICK, onClick);
+			
+			this.addEventListener(MouseEvent.ROLL_OVER, showToolTip);
+			this.addEventListener(MouseEvent.ROLL_OUT, hideTooltip);
 		}
 		
 		
@@ -105,19 +112,28 @@ package com.bit101.components
 			super.draw();
 			_back.graphics.clear();
 			_back.graphics.beginFill(Style.BACKGROUND);
-			_back.graphics.drawRect(0, 0, 10, 10);
+			//_back.graphics.drawCircle(0, 0, _width/2);
+			_back.graphics.drawRect(0, 0, _width, _height);
 			_back.graphics.endFill();
 			
 			_button.graphics.clear();
 			_button.graphics.beginFill(Style.BUTTON_FACE);
-			_button.graphics.drawRect(2, 2, 6, 6);
+			//_button.graphics.drawCircle(0, 0, (_width/2 -4));
+			_button.graphics.drawRect(2, 2, (_width-4), (_height-4));
 			
 			_label.text = _labelText;
 			_label.draw();
-			_label.x = 12;
-			_label.y = (10 - _label.height) / 2;
+			_label.x = _width+2;//12;
+			_label.y = _height/2 - (Style.fontSize/2);
+			//w_label.y = (10 - _label.height) / 2;
 			_width = _label.width + 12;
 			_height = 10;
+			
+			_tooltip.text = _toolText;
+			_tooltip.draw();
+			_tooltip.width = 200;
+			_tooltip.y = -30;//-_tooltip.height/2 -4; //-4;
+			//trace("just height", _height);
 		}
 		
 		
@@ -137,7 +153,19 @@ package com.bit101.components
 			_button.visible = _selected;
 		}
 		
+		/**
+		 * Handler for mouse over on slider
+		 * 
+		 * */
+		protected function showToolTip(event:MouseEvent):void 
+		{
+			_tooltip.visible = true;
+		}
 		
+		protected function hideTooltip(event:MouseEvent):void 
+		{
+			_tooltip.visible = false;
+		}		
 		
 		
 		///////////////////////////////////
@@ -177,6 +205,18 @@ package com.bit101.components
 		{
 			super.enabled = value;
 			mouseChildren = false;
+		}
+		
+		/**
+		 * Gets / sets the tooltip text of this slider.
+		 * */
+		public function set tooltip(str:String):void 
+		{
+			_toolText = str;
+		}
+		public function get tooltip():String 
+		{
+			return _toolText;
 		}
 
 	}

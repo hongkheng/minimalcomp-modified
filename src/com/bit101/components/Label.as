@@ -33,6 +33,7 @@ package com.bit101.components
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	import flash.text.AntiAliasType;
 	
 	[Event(name="resize", type="flash.events.Event")]
 	public class Label extends Component
@@ -74,9 +75,10 @@ package com.bit101.components
 			_tf.height = _height;
 			_tf.embedFonts = Style.embedFonts;
 			_tf.selectable = false;
+			_tf.antiAliasType = AntiAliasType.ADVANCED;
 			_tf.mouseEnabled = false;
 			_tf.defaultTextFormat = new TextFormat(Style.fontName, Style.fontSize, Style.LABEL_TEXT);
-			_tf.text = _text;			
+			_tf.text = _text;
 			addChild(_tf);
 			draw();
 		}

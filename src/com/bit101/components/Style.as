@@ -48,7 +48,7 @@ package com.bit101.components
 		
 		public static var embedFonts:Boolean = true;
 		public static var fontName:String = "PF Ronda Seven";
-		public static var fontSize:Number = 8;
+		public static var fontSize:Number = 12;
 		
 		public static const DARK:String = "dark";
 		public static const LIGHT:String = "light";

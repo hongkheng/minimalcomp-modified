@@ -29,7 +29,9 @@
 package com.bit101.components
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 
 	[Event(name="change", type="flash.events.Event")]
 	public class UISlider extends Component
@@ -41,7 +43,9 @@ package com.bit101.components
 		protected var _sliderClass:Class;
 		protected var _labelText:String;
 		protected var _tick:Number = 1;
-		
+		protected var _tooltip:Tooltip;
+		protected var _toolText:String;
+		protected var _onSlider:Boolean = false;
 		
 		/**
 		 * Constructor
@@ -70,6 +74,12 @@ package com.bit101.components
 			_label = new Label(this, 0, 0);
 			_slider = new _sliderClass(this, 0, 0, onSliderChange);
 			_valueLabel = new Label(this);
+			//_tooltip = new Text(this);
+			_tooltip = new Tooltip(this, 0, 0);
+			_tooltip.visible = false;
+			
+			_slider.addEventListener(MouseEvent.ROLL_OVER, showToolTip);
+			_slider.addEventListener(MouseEvent.ROLL_OUT, hideTooltip);
 		}
 		
 		/**
@@ -115,9 +125,6 @@ package com.bit101.components
 			
 		}
 		
-		
-		
-		
 		///////////////////////////////////
 		// public methods
 		///////////////////////////////////
@@ -131,6 +138,12 @@ package com.bit101.components
 			_label.text = _labelText;
 			_label.draw();
 			formatValueLabel();
+			
+			_tooltip.text = _toolText;
+			_tooltip.draw();
+			_tooltip.width = _width;
+			_tooltip.y = -_tooltip.textField.textHeight-4;
+			//trace(_tooltip.height, _tooltip.textField.textHeight);
 		}
 		
 		/**
@@ -161,8 +174,19 @@ package com.bit101.components
 			dispatchEvent(new Event(Event.CHANGE));
 		}
 		
+		/**
+		 * Handler for mouse over on slider
+		 * 
+		 * */
+		protected function showToolTip(event:MouseEvent):void 
+		{
+			_tooltip.visible = true;
+		}
 		
-		
+		protected function hideTooltip(event:MouseEvent):void 
+		{
+			_tooltip.visible = false;
+		}
 		
 		///////////////////////////////////
 		// getter/setters
@@ -244,6 +268,17 @@ package com.bit101.components
 			return _tick;
 		}
 		
-
+		/**
+		 * Gets / sets the tooltip text of this slider.
+		 * */
+		public function set tooltip(str:String):void 
+		{
+			_toolText = str;
+		}
+		public function get tooltip():String 
+		{
+			return _toolText;
+		}
+		
 	}
 }

@@ -53,7 +53,8 @@ package com.bit101.components
 		override protected function init():void
 		{
 			super.init();
-			setSize(200, 18);
+			setSize(250, 28);
+			_slider.height = 18;
 		}
 		
 		/**
@@ -80,7 +81,7 @@ package com.bit101.components
 			_slider.x = _label.width + 5;
 			_slider.y = height / 2 - _slider.height / 2;
 			_slider.width = width - _label.width - 50 - 10;
-			
+			_slider.height = height;
 			_valueLabel.x = _slider.x + _slider.width + 5;
 		}
 		
